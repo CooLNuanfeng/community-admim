@@ -1,0 +1,16 @@
+1、用户表
+
+超级管理员
+管理员 => 小区 (公告，广告位)
+
+id name pwd communityid community
+
+
+CREATE TABLE `user_admin` (
+  `id` smallint(6) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `pwd` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `communityid` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `community` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
