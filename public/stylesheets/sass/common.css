@@ -1,0 +1,29 @@
+.text-link { padding: 0 2px; }
+
+.btn-120 { width: 120px; }
+
+.bulletin-btn { padding-bottom: 15px; }
+
+.bulletin-btn input { display: none; }
+
+.community-area, .community-list { padding: 10px 0; white-space: normal; }
+
+.community-area span, .community-list span { display: inline-block; padding: 10px 15px; margin-bottom: 10px; margin-right: 10px; font-size: 12px; }
+
+.community-area span i, .community-list span i { margin-left: 4px; }
+
+.community-area button, .community-list button { margin-right: 15px; }
+
+.community-list { display: none; padding: 20px 10px 10px; border: 1px solid #ebebeb; border-radius: 5px; }
+
+.bulletin-img-list .img-thumbnail { display: inline-block; margin-right: 15px; margin-bottom: 15px; }
+
+.table-warp span { display: inline-block; padding: 6px 12px; margin-right: 10px; margin-bottom: 10px; }
+
+.table-warp button { margin-right: 10px; }
+
+.modify-area span { display: inline-block; padding: 8px 12px; margin-right: 10px; margin-bottom: 10px; }
+
+.modal-area-cur span i { margin-left: 5px; }
+
+.modal-areas div { max-height: 800px; overflow-y: auto; }

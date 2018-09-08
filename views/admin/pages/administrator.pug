@@ -1,0 +1,60 @@
+extends ../layout
+
+block content
+    div.container-fluid
+        h4.text-center 管理员管理
+        div.table-warp
+            table.table.table-striped.table-hover
+                thead
+                    th ID
+                    th 姓名
+                    th 区域
+                    th 操作
+                tbody
+                    tr
+                        td 001
+                        td admin
+                        td 全部
+                        td -
+                    tr
+                        td 002
+                        td blue
+                        td 
+                            span.label.label-success 启迪科技城
+                            span.label.label-success 启迪城
+                        td
+                            button.btn.btn-warning.J_modify(data-toggle="modal" data-target="#modifyModal") 修改权限
+                            button.btn.btn-danger.J_delete 删除
+                    tr
+                        td 003
+                        td jack
+                        td 
+                            span.label.label-success 启迪科技城
+                            span.label.label-success 启迪城
+                        td
+                            button.btn.btn-warning.J_modify(data-toggle="modal" data-target="#modifyModal") 修改权限
+                            button.btn.btn-danger.J_delete 删除
+
+
+    div.modal.fade#modifyModal(role="dialog" aria-labelledby="myModalLabel")
+        div.modal-dialog.modal-lg
+            div.modal-content
+                div.modal-header
+                    button.close(type="button" data-dismiss="modal" aria-label="Close")
+                        span(aria-hidden="true") &times;
+                    h4.modal-title 修改管理员权限
+                div.modal-body.modify-area
+                    div.modal-area-cur 
+                        p 当前权限:
+                        div
+                            span.label.label-success 启迪科技城<i class="glyphicon glyphicon-remove-circle"></i>
+                    div.modal-areas
+                        p 所有区域
+                        div
+                            span.label.label-info 启迪科技城
+                            span.label.label-info 启迪科技城
+                div.modal-footer
+                    button.btn.btn-default(type="button" data-dismiss="modal") 取消
+                    button.btn.btn-success(type="button" data-dismiss="modal") 确认
+block append script
+    script(src="/javascripts/pages/administrator.js")

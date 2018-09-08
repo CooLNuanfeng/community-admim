@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+    div.container-fluid
+        div.form-horizontal
+            div.form-group.form-group-lg
+                label.col-sm-2.control-label(for="username") 用户名 
+                div.col-sm-10
+                    input#username.form-control(placeholder="请输入用户名")
+            div.form-group.form-group-lg
+                label.col-sm-2.control-label(for="password") 密码
+                div.col-sm-10
+                    input#password.form-control(type="password" placeholder="请输入密码")
+            div.form-group.form-group-lg
+                label.col-sm-2.control-label(for="repeatpwd") 确认密码
+                div.col-sm-10
+                    input#repeatpwd.form-control(type="password" placeholder="请再次输入密码")
+            div.form-group
+                div.col-sm-10.col-sm-offset-2
+                    button.btn.btn-primary.btn-block.btn-lg 注册

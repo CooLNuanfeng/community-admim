@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+    div.container-fluid
+        h4.text-center 发布公告
+        div.form-horizontal
+            div.form-group.form-group-lg
+                label.col-sm-2.control-label(for="title") 公告标题 
+                div.col-sm-10
+                    input#title.form-control(placeholder="请输入公告标题")
+            div.form-group.form-group-lg
+                label.col-sm-2.control-label(for="content") 公告内容
+                div.col-sm-10
+                    textarea#content.form-control(rows="15" placeholder="请输入公告内容")
+            div.form-group.form-group-lg
+                label.col-sm-2.control-label 发布区域
+                div.col-sm-10
+                    div.community-area
+                        div#J_communityArea
+                        button.btn-120.btn.btn-primary#J_addComunity 选择区域
+                    div#J_communityList.community-list
+                        p.text-center 点击选中要添加的区域
+                        div
+                            span.label.label-success.J_item_area 全部
+                            span.label.label-success.J_item_area 启迪科技城
+            div.form-group.form-group-lg
+                label.col-sm-2.control-label 添加图片
+                div.col-sm-10
+                    div.bulletin-btn
+                        button.btn-120.btn.btn-primary#J_uploadBtn 上传
+                        input#J_fileInput(type="file")
+                    div.bulletin-img-list
+                        div.img-thumbnail: img(src="http://dummyimage.com/200x100")
+                        div.img-thumbnail: img(src="http://dummyimage.com/200x100")
+            div.col-sm-10.col-sm-offset-2
+                button.btn.btn-success.btn-block.btn-lg 发布
+                
+                
+block append script
+    script(src="/javascripts/pages/bulletin.js")
