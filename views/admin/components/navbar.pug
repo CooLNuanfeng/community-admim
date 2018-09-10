@@ -14,11 +14,11 @@ nav.navbar.navbar-inverse
                         span.sr-only
                 li(class={active: currentUrl === '/users/recommend'})
                     a(href="/users/recommend") 推荐墙
-                if userInfo.userid == 1
+                if userInfo.userid == 1 
                     li(class={active: currentUrl === '/users/administrator'})
                         a(class={active: currentUrl === '/users/administrator'} href="/users/administrator") 管理员
                     li(class={active: currentUrl === '/users/area'})
                         a(class={active: currentUrl === '/users/area'} href="/users/area") 区域管理
-            if userInfo
+            if userInfo.user
                 p.navbar-text.navbar-right 你好，#{userInfo.user}
                     a.logout-link(href="/users/logout") 退出

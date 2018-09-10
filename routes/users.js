@@ -31,7 +31,8 @@ router.get('/detail', async(ctx, next) => {
 
 router.get('/login', async(ctx, next) => {
     await ctx.render('pages/login', {
-        title: '登录'
+        title: '登录',
+        userInfo: {},
     })
 })
 
@@ -41,7 +42,8 @@ router.get('/logout', async(ctx, next) => {
 
 router.get('/register', async(ctx, next) => {
     await ctx.render('pages/register', {
-        title: '注册'
+        title: '注册',
+        userInfo: {},
     })
 })
 
