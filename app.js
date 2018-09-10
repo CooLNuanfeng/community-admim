@@ -1,5 +1,6 @@
 const Koa = require('koa')
 const app = new Koa()
+const session = require('koa-session')
 const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
@@ -8,6 +9,13 @@ const logger = require('koa-logger')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
+const api = require('./routes/api')
+
+app.keys = ['47bce5c74f589f4867dbd57e9ca9f808'];
+
+const sessionConfig = {
+    key: 'koa:sess',
+}
 
 // error handler
 onerror(app)
@@ -19,7 +27,7 @@ app.use(bodyparser({
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
-
+app.use(session(sessionConfig, app));
 app.use(views(__dirname + '/views/admin', {
   extension: 'pug'
 }))
@@ -35,6 +43,7 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(api.routes(), index.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

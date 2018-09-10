@@ -2,22 +2,19 @@ extends ../layout
 
 block content
     div.container-fluid
-        h4.text-center 管理员管理
+        h4.text-center 管理员列表
         div.table-warp
             table.table.table-striped.table-hover
                 thead
-                    th ID
                     th 姓名
                     th 区域
                     th 操作
                 tbody
                     tr
-                        td 001
                         td admin
                         td 全部
                         td -
                     tr
-                        td 002
                         td blue
                         td 
                             span.label.label-success 启迪科技城
@@ -26,11 +23,16 @@ block content
                             button.btn.btn-warning.J_modify(data-toggle="modal" data-target="#modifyModal") 修改权限
                             button.btn.btn-danger.J_delete 删除
                     tr
-                        td 003
                         td jack
                         td 
                             span.label.label-success 启迪科技城
                             span.label.label-success 启迪城
+                        td
+                            button.btn.btn-warning.J_modify(data-toggle="modal" data-target="#modifyModal") 修改权限
+                            button.btn.btn-danger.J_delete 删除
+                    tr
+                        td lucy
+                        td -
                         td
                             button.btn.btn-warning.J_modify(data-toggle="modal" data-target="#modifyModal") 修改权限
                             button.btn.btn-danger.J_delete 删除

@@ -6,7 +6,7 @@ nav.navbar.navbar-inverse
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-            a.navbar-brand(href="/") 社区系统 
+            a.navbar-brand(href="/users/index") 社区系统 
         div#bs-example-navbar-collapse-1.collapse.navbar-collapse
             ul.nav.navbar-nav
                 li(class={active: currentUrl === '/users/bulletin'})            
@@ -14,7 +14,11 @@ nav.navbar.navbar-inverse
                         span.sr-only
                 li(class={active: currentUrl === '/users/recommend'})
                     a(href="/users/recommend") 推荐墙
-                li(class={active: currentUrl === '/users/administrator'})
-                    a(class={active: currentUrl === '/users/administrator'} href="/users/administrator") 管理员
-            if username
-                p.navbar-text.navbar-right 你好，#{username}
+                if userInfo.userid == 1
+                    li(class={active: currentUrl === '/users/administrator'})
+                        a(class={active: currentUrl === '/users/administrator'} href="/users/administrator") 管理员
+                    li(class={active: currentUrl === '/users/area'})
+                        a(class={active: currentUrl === '/users/area'} href="/users/area") 区域管理
+            if userInfo
+                p.navbar-text.navbar-right 你好，#{userInfo.user}
+                    a.logout-link(href="/users/logout") 退出
