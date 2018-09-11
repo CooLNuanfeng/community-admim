@@ -9,12 +9,12 @@ const logger = require('koa-logger')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
-const api = require('./routes/api')
 
 app.keys = ['47bce5c74f589f4867dbd57e9ca9f808'];
 
 const sessionConfig = {
     key: 'koa:sess',
+    maxAge: 86400000
 }
 
 // error handler
@@ -40,10 +40,10 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
+
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
-app.use(api.routes(), index.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

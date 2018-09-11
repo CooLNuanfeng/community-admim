@@ -2,20 +2,22 @@ extends ../layout
 
 block content
     div.container-fluid
+        include ../components/alert.pug
         h4.text-center 区域管理
             button.btn.btn-primary.float-right(data-toggle="modal" data-target="#addModal") 添加区域
         div.table-warp
             table.table.table-striped.table-hover
                 thead
-                    th ID
+                    th 区域ID
                     th 区域名称
                     th 操作
-                tbody
-                    tr
-                        td 001
-                        td 科技城
-                        td
-                            button.btn.btn-danger(data-toggle="modal" data-target="#promptModal") 删除
+                tbody#J_tbody
+                    each item,index in areaList
+                        tr
+                            td #{item.id}
+                            td <strong>#{item.name}</strong>
+                            td
+                                button.btn.btn-danger(data-toggle="modal" data-target="#promptModal" data-id=`${item.id}`) 删除
 
     div.modal.fade#addModal(role="dialog")
         div.modal-dialog.modal-lg
@@ -27,9 +29,12 @@ block content
                 div.modal-body.modify-area
                     div.form-group
                         label(for="areaname") 区域名称
-                        input.form-control#areaname(type="text" placeholder="请输入区域名称")
+                        input#J_areaName.form-control(type="text" placeholder="请输入区域名称")
                 div.modal-footer
                     button.btn.btn-default(type="button" data-dismiss="modal") 取消
-                    button.btn.btn-success(type="button" data-dismiss="modal") 确认
+                    button#J_doAdd.btn.btn-success(type="button" data-dismiss="modal") 确认
                     
     include ../components/prompt.pug
+
+block append script
+    script(src="/javascripts/pages/area.js")

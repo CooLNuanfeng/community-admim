@@ -15,12 +15,13 @@ const user_admin = `
 `
 // 小区区域表
 const area_community = `
-    CREATE TABLE IF NOT EXISTS area_community (
-      id int(11) NOT NULL,
-      name varchar(255) CHARACTER SET utf8 NOT NULL,
-      PRIMARY KEY (id),
-      UNIQUE KEY UN_NAME (name) USING BTREE COMMENT '区域名称不重复'
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+    CREATE TABLE area_community (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    name varchar(255) CHARACTER SET utf8 NOT NULL,
+    initials varchar(2) CHARACTER SET utf8 DEFAULT NULL COMMENT '首字母',
+    PRIMARY KEY (id),
+    UNIQUE KEY UN_NAME (name) USING BTREE COMMENT '区域名称不重复'
+    ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 `
 
 let createTable = ( sql ) => {

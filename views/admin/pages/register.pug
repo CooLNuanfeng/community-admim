@@ -2,10 +2,7 @@ extends ../layout
 
 block content
     div.container-fluid
-        div#J_alert.alert.alert-danger(role="alert")
-            button.close(type="button" aria-lable="Close")
-                span(aria-hidden="true") &times;
-            strong Error: 
+        include ../components/alert.pug
         div.form-horizontal
             div.form-group.form-group-lg
                 label.col-sm-2.control-label(for="username") 用户名 

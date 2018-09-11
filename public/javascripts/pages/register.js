@@ -1,7 +1,16 @@
 ;(function(){
     var $registerBtn = $('#J_doregister');
     var $alert = $('#J_alert');
-    var $alertClose = $alert.find('button');
+    var $alertClose = $('#J_alertClose');
+
+
+    function clearAlert(){
+        var timer = setTimeout(function(){
+            $alert.find('strong').html('');
+            $alert.hide();
+            clearTimeout(timer);
+        }, 3000);
+    }
 
     $alertClose.on('click',function(){
         $alert.find('strong').html('');
@@ -25,7 +34,7 @@
             return;
         }
         $.ajax({
-            url: '/api/register',
+            url: '/users/api/register',
             type: 'post',
             data: {
                 name: username,
@@ -40,6 +49,8 @@
                 $alert.find('strong').html(res.message);
                 $alert.show();
             }
-        })
+        }).always(function(){
+            clearAlert();
+        });
     });
 })();

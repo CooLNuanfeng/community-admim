@@ -2,6 +2,7 @@ extends ../layout
 
 block content
     div.container-fluid
+        include ../components/alert.pug
         h4.text-center 管理员列表
         div.table-warp
             table.table.table-striped.table-hover
@@ -9,35 +10,24 @@ block content
                     th 姓名
                     th 区域
                     th 操作
-                tbody
-                    tr
-                        td admin
-                        td 全部
-                        td -
+                tbody#J_tbody
                     tr
                         td blue
-                        td 
-                            span.label.label-success 启迪科技城
-                            span.label.label-success 启迪城
-                        td
-                            button.btn.btn-warning.J_modify(data-toggle="modal" data-target="#modifyModal") 修改权限
-                            button.btn.btn-danger.J_delete 删除
-                    tr
-                        td jack
-                        td 
-                            span.label.label-success 启迪科技城
-                            span.label.label-success 启迪城
-                        td
-                            button.btn.btn-warning.J_modify(data-toggle="modal" data-target="#modifyModal") 修改权限
-                            button.btn.btn-danger.J_delete 删除
-                    tr
-                        td lucy
+                        td 全部
                         td -
-                        td
-                            button.btn.btn-warning.J_modify(data-toggle="modal" data-target="#modifyModal") 修改权限
-                            button.btn.btn-danger.J_delete 删除
-
-
+                    each item,index in adminList
+                        if item.id!=1
+                            tr
+                                td #{item.name}
+                                td 
+                                    div.J_curWarp
+                                        //- span.label.label-success 启迪科技城
+                                        //- span.label.label-success 启迪城
+                                td
+                                    button.btn.btn-warning.J_modifyBtn(data-toggle="modal" data-target="#modifyModal" data-id=`${item.id}`) 修改权限
+                                    button.btn.btn-danger(data-toggle="modal" data-target="#promptModal" data-id=`${item.id}`) 删除
+                
+    include ../components/prompt.pug
     div.modal.fade#modifyModal(role="dialog" aria-labelledby="myModalLabel")
         div.modal-dialog.modal-lg
             div.modal-content
@@ -47,16 +37,15 @@ block content
                     h4.modal-title 修改管理员权限
                 div.modal-body.modify-area
                     div.modal-area-cur 
-                        p 当前权限:
-                        div
-                            span.label.label-success 启迪科技城<i class="glyphicon glyphicon-remove-circle"></i>
+                        p 当前权限区域:
+                        div#J_curArea
                     div.modal-areas
-                        p 所有区域
-                        div
-                            span.label.label-info 启迪科技城
-                            span.label.label-info 启迪科技城
+                        p 所有区域 (点击添加)
+                        div#J_allArea
+                            each item,index in areaList
+                                span.label.label-info(data-id=`${item.id}`) #{item.name}
                 div.modal-footer
                     button.btn.btn-default(type="button" data-dismiss="modal") 取消
-                    button.btn.btn-success(type="button" data-dismiss="modal") 确认
+                    button#J_doModify.btn.btn-success(type="button" data-dismiss="modal") 确认
 block append script
     script(src="/javascripts/pages/administrator.js")
