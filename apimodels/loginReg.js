@@ -22,7 +22,8 @@ module.exports = {
             if(result.length && name == result[0].name && password == result[0].pwd){
                 ctx.session = {
                     user: result[0]['name'],
-                    userid: result[0]['id']
+                    userid: result[0]['id'],
+                    permission: result[0]['superadmin']
                 }
                 ctx.body = {
                     code: 200,
@@ -71,9 +72,11 @@ module.exports = {
                 }
             }else{
                 await mysqlActions.insertAdmin(name,password).then(result => {
+                    // console.log(result);
                     ctx.session = {
                         user: name,
-                        userid: result['insertId']
+                        userid: result['insertId'],
+                        permission: 0
                     }
                     ctx.body = {
                         code: 200,

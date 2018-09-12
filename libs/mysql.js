@@ -57,7 +57,7 @@ exports.deleteAdmin = (id)=>{
 //更新管理员权限
 exports.updateAdminarea = (ids,name) => {
     let _sql = `update user_admin set communityid=? where name=?`
-    return query( _sql);
+    return query( _sql,[ids,name]);
 }
 
 //查找区域信息
@@ -80,5 +80,18 @@ exports.deleteAreas = (id)=>{
 //查看所有的区域
 exports.findAreaData = ()=>{
    let _sql = `select * from area_community;`
+   return query( _sql);
+}
+
+
+// 插入一个公告
+exports.insertBulletin = (title,content,ids,imgs,publisher)=>{
+   let _sql = `insert into bulletin_admin set title=?,content=?,community_ids=?,imgs=?,publisher=?;`
+   return query( _sql,[title,content,ids,imgs,publisher]);
+}
+
+//查询用户发布公告
+exports.findBulletinByName = (name)=>{
+   let _sql = `select * from bulletin_admin where publisher="${name}";`
    return query( _sql);
 }

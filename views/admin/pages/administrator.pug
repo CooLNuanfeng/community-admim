@@ -13,18 +13,22 @@ block content
                 tbody#J_tbody
                     tr
                         td blue
-                        td 全部
+                        td 
+                            span.label.label-success 全部
                         td -
                     each item,index in adminList
                         if item.id!=1
                             tr
                                 td #{item.name}
                                 td 
-                                    div.J_curWarp
-                                        //- span.label.label-success 启迪科技城
-                                        //- span.label.label-success 启迪城
+                                    div.J_curWarp 
+                                        each id in `${item.communityid}`.split('-')
+                                            each area in areaList
+                                                if area.id == id
+                                                    span.label.label-success(data-id=`${id}`) #{area.name}
+                                                        
                                 td
-                                    button.btn.btn-warning.J_modifyBtn(data-toggle="modal" data-target="#modifyModal" data-id=`${item.id}`) 修改权限
+                                    button.btn.btn-warning.J_modifyBtn(data-toggle="modal" data-target="#modifyModal" data-name=`${item.name}` data-id=`${item.id}`) 修改权限
                                     button.btn.btn-danger(data-toggle="modal" data-target="#promptModal" data-id=`${item.id}`) 删除
                 
     include ../components/prompt.pug

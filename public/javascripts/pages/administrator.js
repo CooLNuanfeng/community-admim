@@ -5,6 +5,7 @@
     var $tbody = $('#J_tbody');
     var deleteId = '';
     var $currentDom = null;
+    var curname = '';
     var $curArea = $('#J_curArea');
     var $allArea = $('#J_allArea');
     var curAreaArrJson = [];
@@ -15,7 +16,7 @@
         $curArea.html('');
         var $span = $(this).parents('tr').find('.J_curWarp span');
         if($span.length){
-            $span.forEach(function(item){
+            $.each($span,function(index,item){
                 var id = $(item).data('id');
                 var name = $(item).html();
                 var html = '<span class="label label-success" data-id="'+id+'"> '+name+'<i class="glyphicon glyphicon-remove-circle"></i>';
@@ -54,6 +55,7 @@
     $tbody.on('click','.btn',function(){
         deleteId = $(this).data('id');
         $currentDom = $(this).parents('tr');
+        curname = $(this).data('name');
     });
 
     $('#J_doModify').on('click',function(){
@@ -63,7 +65,8 @@
             url: '/users/api/updateAdminarea',
             type: 'post',
             data: {
-                ids: ids
+                ids: ids,
+                name: curname
             },
             dataType: 'json'
         }).done(function(res){

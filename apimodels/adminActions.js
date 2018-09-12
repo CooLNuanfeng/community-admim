@@ -1,26 +1,51 @@
 const mysqlActions = require('../libs/mysql.js');
 
 module.exports = {
+    postBulletin: async ctx=>{
+        let {title,content,areaids,imgs} = ctx.request.body;
+        let publisher = ctx.session.user;
+        console.log(title,content,areaids,imgs,publisher);
+        await mysqlActions.insertBulletin(title,content,areaids,imgs.join(','),publisher).then(result=>{
+            ctx.body = {
+                code: 200,
+                message: '发布成功'
+            }
+        }).catch(err=>{
+            console.log(err);
+            ctx.body = {
+                code: 500,
+                message: '操作异常'
+            }
+        });
+
+    },
     getAdminList: async ctx=>{
         return await mysqlActions.findAdminData();
     },
     getAreaList: async ctx=>{
         return await mysqlActions.findAreaData();
     },
+    getAdminData: async ctx=>{
+        let name = ctx.session.user;
+        return await mysqlActions.findDataByName(name);
+    },
     updateAdminarea: async ctx=>{
-        if(ctx.session.userid!==1 && ctx.session.user!= 'blue'){
+        if(!ctx.session.permission){
             ctx.body = {
                 code: 400,
                 message: '你没有权限'
             }
         }else{
             let {name,ids} = ctx.request.body;
+            console.log(name,ids);
             await mysqlActions.updateAdminarea(ids,name).then(result=>{
+                // console.log(result);
                 ctx.body = {
                     code: 200,
                     message: '操作成功'
                 }
             }).catch(err=>{
+                console.log(err);
                 ctx.body = {
                     code: 500,
                     message: '服务异常'
@@ -29,7 +54,7 @@ module.exports = {
         }
     },
     deleteAdmin: async ctx=>{
-        if(ctx.session.userid!==1 && ctx.session.user!= 'blue'){
+        if(!ctx.session.permission){
             ctx.body = {
                 code: 400,
                 message: '你没有权限'
@@ -50,7 +75,7 @@ module.exports = {
         }
     },
     insertArea: async ctx=>{
-        if(ctx.session.userid!==1 && ctx.session.user!= 'blue'){
+        if(!ctx.session.permission){
             ctx.body = {
                 code: 400,
                 message: '你没有权限'
@@ -86,7 +111,7 @@ module.exports = {
         }
     },
     deleteArea: async ctx => {
-        if(ctx.session.userid!==1 && ctx.session.user!= 'blue'){
+        if(!ctx.session.permission){
             ctx.body = {
                 code: 400,
                 message: '你没有权限'
