@@ -3,13 +3,6 @@
     var $alert = $('#J_alert');
     var $alertClose = $('#J_alertClose');
 
-    function clearAlert(){
-        var timer = setTimeout(function(){
-            $alert.find('strong').html('');
-            $alert.hide();
-            clearTimeout(timer);
-        }, 3000);
-    }
 
     $alertClose.on('click',function(){
         $alert.find('strong').html('');
@@ -37,12 +30,19 @@
             if(res.code == 200){
                 location.href = '/users/index'
             }else{
-                $alert.find('strong').html(res.message);
-                $alert.show();
+                clearAlert(res.message);
             }
-        }).always(function(){
-            clearAlert();
         });
     })
 
+    function clearAlert(message){
+        $alert.find('strong').html(message);
+        $alert.removeClass('alert-success');
+        $alert.addClass('alert-danger').show();
+        var timer = setTimeout(function(){
+            $alert.find('strong').html('');
+            $alert.hide();
+            clearTimeout(timer);
+        }, 3000);
+    }
 })();

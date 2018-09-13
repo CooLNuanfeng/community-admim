@@ -6,28 +6,35 @@ block content
         div.table-warp
             table.table.table-striped.table-hover
                 thead
+                    th 序号
                     th 标题
                     th 发布区域
                     th 发布类型
                     th 发布时间
                     th 操作
                 tbody
-                    tr
-                        td 
-                            p.td-title 安条记因低县委所提化权联立重提
-                        td 
-                            span.label.label-success 科技城
-                            span.label.label-success 启迪城
-                        td 公告
-                        td 2018-09-09
-                        td 
-                            a.btn.btn-info(href="/users/detail?id=001&type=1") 查看
-                    tr
-                        td 安条记因低县委所提化权联立重提
-                        td 
-                            span.label.label-success 科技城
-                            span.label.label-success 启迪城
-                        td 推荐墙
-                        td 2018-09-09
-                        td 
-                            a.btn.btn-info(href="/users/detail?id=002&type=2") 查看
+                    each art,index in articals
+                        tr
+                            td= index+1
+                            td 
+                                p.td-title #{art.title}
+                            td 
+                                each id in art.community_ids.split('-')
+                                    if id == 'all'
+                                        span.label.label-primary 全部
+                                    else
+                                        each area in areaList
+                                            if area.id == id
+                                                span.label.label-success #{area.name}
+                            if art.type == 1 
+                                td 公告
+                            else 
+                                td 推荐墙 
+                                    - var n = 0;
+                                    while n < art.star
+                                        - n++;
+                                        span.span-star.glyphicon.glyphicon-star
+                            td #{art.time.toLocaleString()}
+                            td 
+                                a.btn.btn-info(href=`/users/detail?id=${art.id}&type=${art.type}`) 查看
+                    

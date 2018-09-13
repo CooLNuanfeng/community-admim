@@ -14,8 +14,12 @@ router.get('/index', async(ctx, next) => {
         ctx.redirect('/users/login');
         return;
     }
+    var articals = await adminActions.getArticals(ctx);
+    var areaList = await adminActions.getAreaList();
     await ctx.render('pages/index', {
         title: '首页',
+        articals,
+        areaList,
         userInfo: ctx.session
     })
 })
@@ -90,9 +94,13 @@ router.get('/recommend', async(ctx, next) => {
         ctx.redirect('/users/login');
         return;
     }
+    var adminInfo = await adminActions.getAdminData(ctx);
+    var areaList = await adminActions.getAreaList();
     await ctx.render('pages/recommend', {
         title: '推荐墙',
         userInfo: ctx.session,
+        userareaIds: adminInfo[0]['communityid'],
+        areaList,
         currentUrl: '/users/recommend'
     })
 })
@@ -142,7 +150,7 @@ router.get('/api/addArea',adminActions.insertArea);
 router.get('/api/delArea',adminActions.deleteArea);
 router.get('/api/delAdmin',adminActions.deleteAdmin);
 router.post('/api/updateAdminarea',adminActions.updateAdminarea);
-router.post('/api/postBulletin',adminActions.postBulletin);
+router.post('/api/postArtical',adminActions.postArtical);
 
 
 module.exports = router

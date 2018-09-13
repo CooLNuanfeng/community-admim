@@ -20,13 +20,18 @@
                 areaids.push(id);
             }
         });
-    
+        if(!areaids.length){
+            clearAlert('区域参数缺失');
+            return;
+        }
         $.ajax({
-            url: '/users/api/postBulletin',
+            url: '/users/api/postArtical',
             type: 'post',
             data: {
                 title: $title.val(),
                 content: $content.val(),
+                type: 1,
+                star: 0,
                 areaids: areaids.join('-'),
                 imgs: ['http://dummyimage.com/750x100','http://dummyimage.com/750x500']
             },
@@ -35,9 +40,7 @@
             if(res.code == 200){
                 location.href = '/users/success';
             }else{
-                $alert.find('strong').html(res.message);
-                $alert.removeClass('alert-success');
-                $alert.addClass('alert-danger').show();
+                clearAlert(res.message);
             }
         })
     });
@@ -78,5 +81,16 @@
         }
 
     });
+
+    function clearAlert(message){
+        $alert.find('strong').html(message);
+        $alert.removeClass('alert-success');
+        $alert.addClass('alert-danger').show();
+        var timer = setTimeout(function(){
+            $alert.find('strong').html('');
+            $alert.hide();
+            clearTimeout(timer);
+        }, 3000);
+    }
 
 })();

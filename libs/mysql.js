@@ -84,14 +84,14 @@ exports.findAreaData = ()=>{
 }
 
 
-// 插入一个公告
-exports.insertBulletin = (title,content,ids,imgs,publisher)=>{
-   let _sql = `insert into bulletin_admin set title=?,content=?,community_ids=?,imgs=?,publisher=?;`
-   return query( _sql,[title,content,ids,imgs,publisher]);
+// 发布一个帖子
+exports.insertArtical = (title,content,type,star,ids,imgs,publisher)=>{
+   let _sql = `insert into publish_table set title=?,content=?,type=?,star=?,community_ids=?,imgs=?,publisher=?;`
+   return query( _sql,[title,content,type,star,ids,imgs,publisher]);
 }
 
-//查询用户发布公告
-exports.findBulletinByName = (name)=>{
-   let _sql = `select * from bulletin_admin where publisher="${name}";`
+//查询用户发布
+exports.findArticalByName = (name)=>{
+   let _sql = `select * from publish_table where publisher="${name}";`
    return query( _sql);
 }

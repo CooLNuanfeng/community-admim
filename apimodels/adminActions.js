@@ -1,11 +1,14 @@
 const mysqlActions = require('../libs/mysql.js');
 
 module.exports = {
-    postBulletin: async ctx=>{
-        let {title,content,areaids,imgs} = ctx.request.body;
+    getArticals: async ctx =>{
+        var name = ctx.session.user;
+        return await mysqlActions.findArticalByName(name);
+    },
+    postArtical: async ctx=>{
+        let {title,content,type,star,areaids,imgs} = ctx.request.body;
         let publisher = ctx.session.user;
-        console.log(title,content,areaids,imgs,publisher);
-        await mysqlActions.insertBulletin(title,content,areaids,imgs.join(','),publisher).then(result=>{
+        await mysqlActions.insertArtical(title,content,type,star,areaids,imgs.join(','),publisher).then(result=>{
             ctx.body = {
                 code: 200,
                 message: '发布成功'

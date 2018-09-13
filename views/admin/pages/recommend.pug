@@ -2,34 +2,44 @@ extends ../layout
 
 block content
     div.container-fluid
+        include ../components/alert.pug
         h4.text-center 发布推荐墙
         div.form-horizontal
             div.form-group.form-group-lg
                 label.col-sm-2.control-label(for="title") 标题 
                 div.col-sm-10
-                    input#title.form-control(placeholder="请输入标题")
+                    input#J_title.form-control(placeholder="请输入标题")
             div.form-group.form-group-lg
                 label.col-sm-2.control-label(for="content") 内容
                 div.col-sm-10
-                    textarea#content.form-control(rows="15" placeholder="请输入公告内容")
+                    textarea#J_content.form-control(rows="15" placeholder="请输入公告内容")
             div.form-group.form-group-lg
                 label.col-sm-2.control-label() 推荐星数
                 div.col-sm-10
-                    select.form-control
+                    select#J_selectStar.form-control
                         option(value="5") 五星
                         option(value="4") 四星
                         option(value="3") 三星
             div.form-group.form-group-lg
                 label.col-sm-2.control-label() 发布区域
                 div.col-sm-10
-                    div.community-area
-                        div#J_communityArea
-                        button.btn-120.btn.btn-primary#J_addComunity 选择区域
-                    div#J_communityList.community-list
-                        p.text-center 点击选中要添加的区域
-                        div
-                            span.label.label-success.J_item_area 全部
-                            span.label.label-success.J_item_area 启迪科技城
+                    if userInfo.permission
+                        div.community-area
+                            div#J_communityArea
+                            button.btn-120.btn.btn-primary#J_addComunity 选择区域
+                        div#J_communityList.community-list
+                            p.text-center 点击选中要添加的区域
+                            div
+                                span.label.label-success.J_item_area(data-id="all") 全部
+                                each area in areaList
+                                    span.label.label-success.J_item_area(data-id=`${area.id}`) #{area.name}
+                    else
+                        div#J_communityArea.community-area
+                            each id in userareaIds.split('-')
+                                each area in areaList
+                                    if area.id == id
+                                        span.label.label-success(data-id=`${id}`) #{area.name}
+                    
             div.form-group.form-group-lg
                 label.col-sm-2.control-label 添加图片
                 div.col-sm-10
@@ -40,7 +50,7 @@ block content
                         div.img-thumbnail: img(src="http://dummyimage.com/200x100")
                         div.img-thumbnail: img(src="http://dummyimage.com/200x100")
             div.col-sm-10.col-sm-offset-2
-                button.btn.btn-success.btn-block.btn-lg 发布
+                button#J_publish.btn.btn-primary.btn-block.btn-lg 发布
                 
                 
 block append script

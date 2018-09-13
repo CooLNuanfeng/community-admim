@@ -77,12 +77,8 @@
                 var html = renderAreaHtml(curAreaArrJson);
                 $currentDom.find('.J_curWarp').html(html);
             }else{
-                $alert.find('strong').html(res.message);
-                $alert.removeClass('alert-success');
-                $alert.addClass('alert-danger').show();
+                clearAlert(res.message);
             }
-        }).always(function(){
-            clearAlert();
         });
     });
 
@@ -103,17 +99,16 @@
                 $alert.addClass('alert-success').show();
                 $currentDom.remove();
             }else{
-                $alert.find('strong').html(res.message);
-                $alert.removeClass('alert-success');
-                $alert.addClass('alert-danger').show();
+                clearAlert(res.message)
             }
-        }).always(function(){
-            clearAlert();
         });
     });
 
 
-    function clearAlert(){
+    function clearAlert(message){
+        $alert.find('strong').html(message);
+        $alert.removeClass('alert-success');
+        $alert.addClass('alert-danger').show();
         var timer = setTimeout(function(){
             $alert.find('strong').html('');
             $alert.hide();

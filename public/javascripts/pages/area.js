@@ -13,14 +13,6 @@
         $tbody.append(html);
     }
 
-    function clearAlert(){
-        var timer = setTimeout(function(){
-            $alert.find('strong').html('');
-            $alert.hide();
-            clearTimeout(timer);
-        }, 3000);
-    }
-
     $alertClose.on('click',function(){
         $alert.hide();
     });
@@ -45,12 +37,8 @@
                 $alert.addClass('alert-success').show();
                 $deleteDom.remove();
             }else{
-                $alert.find('strong').html(res.message);
-                $alert.removeClass('alert-success');
-                $alert.addClass('alert-danger').show();
+                clearAlert(res.message);
             }
-        }).always(function(){
-            clearAlert();
         });
     });
 
@@ -76,12 +64,19 @@
                     $alert.hide();
                 }, 3000);
             }else{
-                $alert.find('strong').html(res.message);
-                $alert.removeClass('alert-success');
-                $alert.addClass('alert-danger').show();
+                clearAlert(res.message);
             }
-        }).always(function(){
-            clearAlert();
-        })
+        });
     });
+
+    function clearAlert(message){
+        $alert.find('strong').html(message);
+        $alert.removeClass('alert-success');
+        $alert.addClass('alert-danger').show();
+        var timer = setTimeout(function(){
+            $alert.find('strong').html('');
+            $alert.hide();
+            clearTimeout(timer);
+        }, 3000);
+    }
 })();

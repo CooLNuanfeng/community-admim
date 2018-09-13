@@ -30,6 +30,8 @@
 
 .table-warp span { display: inline-block; padding: 6px 12px; margin-right: 10px; margin-bottom: 10px; }
 
+.table-warp span.span-star { padding: 0 1px; margin-right: 0; margin-bottom: 0; font-size: 12px; }
+
 .table-warp button { margin-right: 10px; }
 
 .modify-area span { display: inline-block; padding: 8px 12px; margin-right: 10px; margin-bottom: 10px; }
