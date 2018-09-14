@@ -31,14 +31,14 @@
                 title: $title.val(),
                 content: $content.val(),
                 type: 1,
-                star: 0,
+                star: '',
                 areaids: areaids.join('-'),
                 imgs: ['http://dummyimage.com/750x100','http://dummyimage.com/750x500']
             },
             dataType: 'json'
         }).done(function(res){
             if(res.code == 200){
-                location.href = '/users/success';
+                location.href = '/users/success?type=1';
             }else{
                 clearAlert(res.message);
             }

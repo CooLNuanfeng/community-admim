@@ -14,7 +14,7 @@ router.get('/index', async(ctx, next) => {
         ctx.redirect('/users/login');
         return;
     }
-    var articals = await adminActions.getArticals(ctx);
+    var articals = await adminActions.getArticalsByName(ctx);
     var areaList = await adminActions.getAreaList();
     await ctx.render('pages/index', {
         title: '首页',
@@ -25,19 +25,24 @@ router.get('/index', async(ctx, next) => {
 })
 
 router.get('/detail', async(ctx, next) => {
-    let query = ctx.query;
-    let id = query.id;
+    let {id,type} = ctx.query;
     var {user,userid} = ctx.session;
     if(!checkLogin(ctx)){
         ctx.redirect('/users/login');
         return;
     }
+    var detailInfo = await adminActions.getArticalById(id,user);
+    var areaList = await adminActions.getAreaList();
     await ctx.render('pages/detail', {
         title: '发布详情',
         userInfo: ctx.session,
-        type: query.type
-    })
-})
+        areaList,
+        detailInfo: detailInfo[0],
+        type: type
+    }).catch(err=>{
+        ctx.redirect('/users/error');
+    });
+});
 
 router.get('/login', async(ctx, next) => {
     await ctx.render('pages/login', {
@@ -66,25 +71,36 @@ router.get('/bulletin', async(ctx, next) => {
     }
     var adminInfo = await adminActions.getAdminData(ctx);
     var areaList = await adminActions.getAreaList();
-    await ctx.render('pages/bulletin', {
-        title: '公告',
-        userInfo: ctx.session,
-        userareaIds: adminInfo[0]['communityid'],
-        areaList,
-        currentUrl: '/users/bulletin'
-    })
+    // console.log(adminInfo);
+    if(!adminInfo[0]['communityid']){
+        await ctx.render('pages/contact', {
+            title: '联系管理员',
+            userInfo: ctx.session,
+        })
+    }else{
+        await ctx.render('pages/bulletin', {
+            title: '公告',
+            userInfo: ctx.session,
+            userareaIds: adminInfo[0]['communityid'],
+            areaList,
+            currentUrl: '/users/bulletin'
+        })
+    }
+
 })
 
 
 router.get('/success', async(ctx, next) => {
     var {user,userid} = ctx.session;
+    let {type} = ctx.query;
     if(!checkLogin(ctx)){
         ctx.redirect('/users/login');
         return;
     }
     await ctx.render('pages/success', {
         title: '发布成功',
-        userInfo: ctx.session
+        userInfo: ctx.session,
+        type
     })
 })
 
@@ -96,13 +112,20 @@ router.get('/recommend', async(ctx, next) => {
     }
     var adminInfo = await adminActions.getAdminData(ctx);
     var areaList = await adminActions.getAreaList();
-    await ctx.render('pages/recommend', {
-        title: '推荐墙',
-        userInfo: ctx.session,
-        userareaIds: adminInfo[0]['communityid'],
-        areaList,
-        currentUrl: '/users/recommend'
-    })
+    if(!adminInfo[0]['communityid']){
+        await ctx.render('pages/contact', {
+            title: '联系管理员',
+            userInfo: ctx.session,
+        })
+    }else{
+        await ctx.render('pages/recommend', {
+            title: '推荐墙',
+            userInfo: ctx.session,
+            userareaIds: adminInfo[0]['communityid'],
+            areaList,
+            currentUrl: '/users/recommend'
+        })
+    }
 })
 
 router.get('/administrator', async(ctx, next) => {
@@ -139,7 +162,12 @@ router.get('/area', async(ctx, next) => {
 
 })
 
-
+router.get('/error', async(ctx, next) => {
+    await ctx.render('pages/error', {
+        title: '非法访问',
+        userInfo: ctx.session,
+    })
+})
 
 //api 接口
 //登录注册
@@ -151,6 +179,8 @@ router.get('/api/delArea',adminActions.deleteArea);
 router.get('/api/delAdmin',adminActions.deleteAdmin);
 router.post('/api/updateAdminarea',adminActions.updateAdminarea);
 router.post('/api/postArtical',adminActions.postArtical);
+router.post('/api/updateArtical',adminActions.updateArtical);
+router.get('/api/delArtical',adminActions.delArtical);
 
 
 module.exports = router

@@ -67,9 +67,9 @@ exports.findAreaCountByName = (name)=>{
 }
 
 // 插入一个区域
-exports.insertAreas = (name)=>{
-   let _sql = `insert into area_community set name="${name}";`
-   return query( _sql);
+exports.insertAreas = (name,letter)=>{
+   let _sql = `insert into area_community set name="${name}",initials="${letter}";`
+   return query( _sql,name,letter);
 }
 //删除一个区域
 exports.deleteAreas = (id)=>{
@@ -83,13 +83,26 @@ exports.findAreaData = ()=>{
    return query( _sql);
 }
 
-
 // 发布一个帖子
 exports.insertArtical = (title,content,type,star,ids,imgs,publisher)=>{
    let _sql = `insert into publish_table set title=?,content=?,type=?,star=?,community_ids=?,imgs=?,publisher=?;`
    return query( _sql,[title,content,type,star,ids,imgs,publisher]);
 }
-
+//更新帖子
+exports.updateArtical = (id,title,content,star,areaids,imgs)=>{
+    let _sql = `update publish_table set title=?,content=?,star=?,community_ids=?,imgs=? where id=?;`
+    return query( _sql,[title,content,star,areaids,imgs,id]);
+}
+//查询帖子
+exports.findArticalById = (id,name)=>{
+   let _sql = `select * from publish_table where id="${id}" and publisher="${name}";`
+   return query( _sql,id,name);
+}
+//删除帖子
+exports.delArtical = (id)=>{
+    let _sql = `delete from publish_table where id="${id}"`
+    return query( _sql,id);
+}
 //查询用户发布
 exports.findArticalByName = (name)=>{
    let _sql = `select * from publish_table where publisher="${name}";`

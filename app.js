@@ -45,6 +45,11 @@ app.use(async (ctx, next) => {
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 
+app.use(async (ctx) => {
+  ctx.status = 404
+  await ctx.render('pages/404')
+})
+
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)

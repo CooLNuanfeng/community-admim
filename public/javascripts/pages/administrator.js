@@ -51,6 +51,9 @@
         }
     });
 
+    $alertClose.on('click',function(){
+        $alert.hide();
+    });
 
     $tbody.on('click','.btn',function(){
         deleteId = $(this).data('id');
@@ -71,9 +74,7 @@
             dataType: 'json'
         }).done(function(res){
             if(res.code == 200){
-                $alert.find('strong').html('操作成功');
-                $alert.removeClass('alert-danger');
-                $alert.addClass('alert-success').show();
+                clearAlert('操作成功',true);
                 var html = renderAreaHtml(curAreaArrJson);
                 $currentDom.find('.J_curWarp').html(html);
             }else{
@@ -94,9 +95,7 @@
             dataType: 'json'
         }).done(function(res){
             if(res.code == 200){
-                $alert.find('strong').html('删除成功');
-                $alert.removeClass('alert-danger');
-                $alert.addClass('alert-success').show();
+                clearAlert('删除成功',true);
                 $currentDom.remove();
             }else{
                 clearAlert(res.message)
@@ -105,10 +104,15 @@
     });
 
 
-    function clearAlert(message){
+    function clearAlert(message,type){
         $alert.find('strong').html(message);
-        $alert.removeClass('alert-success');
-        $alert.addClass('alert-danger').show();
+        if(type){
+            $alert.addClass('alert-success');
+            $alert.removeClass('alert-danger').show();
+        }else{
+            $alert.removeClass('alert-success');
+            $alert.addClass('alert-danger').show();
+        }
         var timer = setTimeout(function(){
             $alert.find('strong').html('');
             $alert.hide();

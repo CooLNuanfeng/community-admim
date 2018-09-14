@@ -1,9 +1,12 @@
 const mysqlActions = require('../libs/mysql.js');
 
 module.exports = {
-    getArticals: async ctx =>{
+    getArticalsByName: async ctx =>{
         var name = ctx.session.user;
         return await mysqlActions.findArticalByName(name);
+    },
+    getArticalById: async (id,name)=>{
+        return await mysqlActions.findArticalById(id,name);
     },
     postArtical: async ctx=>{
         let {title,content,type,star,areaids,imgs} = ctx.request.body;
@@ -20,7 +23,37 @@ module.exports = {
                 message: '操作异常'
             }
         });
-
+    },
+    updateArtical: async ctx=>{
+        let {id,title,content,star,areaids,imgs} = ctx.request.body;
+        // console.log(areaids);
+        await mysqlActions.updateArtical(id,title,content,star,areaids,imgs.join(',')).then(result=>{
+            ctx.body = {
+                code: 200,
+                message: '修改成功'
+            }
+        }).catch(err=>{
+            console.log(err);
+            ctx.body = {
+                code: 500,
+                message: '操作异常'
+            }
+        });
+    },
+    delArtical: async ctx=>{
+        let {id} = ctx.request.query
+        await mysqlActions.delArtical(id).then(result=>{
+            ctx.body = {
+                code: 200,
+                message: '修改成功'
+            }
+        }).catch(err=>{
+            console.log(err);
+            ctx.body = {
+                code: 500,
+                message: '操作异常'
+            }
+        });
     },
     getAdminList: async ctx=>{
         return await mysqlActions.findAdminData();
@@ -84,7 +117,7 @@ module.exports = {
                 message: '你没有权限'
             }
         }else{
-            let {name} = ctx.request.query;
+            let {name,letter} = ctx.request.query;
             await mysqlActions.findAreaCountByName(name).then(async result=>{
                 if(result[0].count >= 1){
                     ctx.body = {
@@ -92,7 +125,7 @@ module.exports = {
                         message: '区域名已存在'
                     }
                 }else{
-                    await mysqlActions.insertAreas(name).then(result=>{
+                    await mysqlActions.insertAreas(name,letter).then(result=>{
                         ctx.body = {
                             code: 200,
                             message: '插入成功',
