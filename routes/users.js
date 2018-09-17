@@ -1,7 +1,7 @@
 const router = require('koa-router')()
 const checkLogin = require('../middlewares/check.js');
-const loginReg = require('../apimodels/loginReg');
-const adminActions = require('../apimodels/adminActions');
+const loginReg = require('../api/loginReg');
+const adminActions = require('../api/adminActions');
 
 
 router.prefix('/users')
