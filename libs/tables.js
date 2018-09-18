@@ -11,7 +11,7 @@ const user_admin = `
     superadmin smallint(10) DEFAULT '0',
     PRIMARY KEY (id),
     UNIQUE KEY UN_NAME (name) USING HASH COMMENT '用户名不重复'
-    ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 `
 // 小区区域表
 const area_community = `
@@ -21,7 +21,7 @@ const area_community = `
       initials varchar(2) DEFAULT NULL COMMENT '首字母',
       PRIMARY KEY (id),
       UNIQUE KEY UN_NAME (name) USING BTREE COMMENT '区域名称不重复'
-    ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 `
 
 // 公告表
