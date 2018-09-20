@@ -56,7 +56,7 @@ exports.deleteAdmin = (id)=>{
 }
 //更新管理员权限
 exports.updateAdminarea = (ids,name) => {
-    let _sql = `update user_admin set communityid=? where name=?`
+    let _sql = `update user_admin set communityid=?,uploadauth=1 where name=?`
     return query( _sql,[ids,name]);
 }
 
@@ -107,4 +107,11 @@ exports.delArtical = (id)=>{
 exports.findArticalByName = (name)=>{
    let _sql = `select * from publish_table where publisher="${name}";`
    return query( _sql);
+}
+
+
+//上传插入图片
+exports.insertUploadimg = (name)=>{
+    let _sql = `insert into upload_pics set picname="${name}";`
+    return query( _sql);
 }

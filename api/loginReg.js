@@ -23,7 +23,8 @@ module.exports = {
                 ctx.session = {
                     user: result[0]['name'],
                     userid: result[0]['id'],
-                    permission: result[0]['superadmin']
+                    permission: result[0]['superadmin'],
+                    uploadAuth: result[0]['uploadauth'],
                 }
                 ctx.body = {
                     code: 200,
@@ -76,7 +77,8 @@ module.exports = {
                     ctx.session = {
                         user: name,
                         userid: result['insertId'],
-                        permission: 0
+                        permission: 0,
+                        uploadAuth: 0,
                     }
                     ctx.body = {
                         code: 200,

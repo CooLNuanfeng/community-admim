@@ -26,7 +26,15 @@
 
 .community-list { display: none; padding: 20px 10px 10px; border: 1px solid #ebebeb; border-radius: 5px; }
 
-.bulletin-img-list .img-thumbnail { display: inline-block; margin-right: 15px; margin-bottom: 15px; }
+.img-thumbnail { position: relative; display: inline-flex; width: 200px; height: 200px; justify-content: center; align-items: center; margin-right: 15px; margin-bottom: 15px; vertical-align: top; }
+
+.img-thumbnail img { max-width: 100%; max-height: 100%; }
+
+.img-info { position: absolute; left: 0; right: 0; bottom: 0; padding: 5px; text-align: center; background: rgba(0, 0, 0, 0.8); font-size: 12px; color: #fff; z-index: 5; }
+
+.progress { display: none; position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; margin-bottom: 0; }
+
+.del-img { position: absolute; right: 0; top: 0; display: flex; justify-content: center; align-items: center; width: 25px; height: 25px; font-size: 12px; color: #fff; background: rgba(0, 0, 0, 0.8); z-index: 5; cursor: pointer; }
 
 .table-warp span { display: inline-block; padding: 6px 12px; margin-right: 10px; margin-bottom: 10px; }
 
@@ -39,3 +47,7 @@
 .modal-area-cur span i { margin-left: 5px; }
 
 .modal-areas div { max-height: 800px; overflow-y: auto; }
+
+.alert-upload { margin-top: 20px; }
+
+.upload-tips { margin-left: 20px; }

@@ -9,6 +9,7 @@ const user_admin = `
     communityid varchar(255) DEFAULT NULL,
     community varchar(255) DEFAULT NULL,
     superadmin smallint(10) DEFAULT '0',
+    uploadauth tinyint(5) DEFAULT '0',
     PRIMARY KEY (id),
     UNIQUE KEY UN_NAME (name) USING HASH COMMENT '用户名不重复'
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -39,6 +40,14 @@ const publish_table = `
     PRIMARY KEY (id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 `
+//图片上传表
+const upload_pics = `
+    CREATE TABLE upload_pics (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    picname varchar(255) DEFAULT NULL,
+    PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+`
 
 const createTable = ( sql ) => {
     return mysqlActions.query( sql, [] )
@@ -49,6 +58,7 @@ Promise.all([
     createTable(user_admin),
     createTable(area_community),
     createTable(publish_table)
+    createTable(upload_pics)
 ]).then(()=>{
     console.log('create tables success');
     process.exit();

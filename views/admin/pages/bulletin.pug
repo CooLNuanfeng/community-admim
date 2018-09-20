@@ -37,14 +37,23 @@ block content
                 label.col-sm-2.control-label 添加图片
                 div.col-sm-10
                     div.bulletin-btn
-                        button.btn-120.btn.btn-primary#J_uploadBtn 上传
-                        input#J_fileInput(type="file")
-                    div.bulletin-img-list
-                        div.img-thumbnail: img(src="http://dummyimage.com/200x100")
-                        div.img-thumbnail: img(src="http://dummyimage.com/200x100")
+                        button.btn-120.btn.btn-primary#J_uploadBtn 添加图片
+                        span.upload-tips.label.label-danger 最多上传6张，每张2M内
+                        div.alert.alert-danger.alert-upload#J_uploadMsg
+                            button.close(type="button")
+                                span &times;
+                            p 
+                    div#J_uploadList.bulletin-img-list
+                        //- div.img-thumbnail
+                        //-     span.del-img.glyphicon.glyphicon-remove.J_delImg(href="javascript:;")
+                        //-     img(src="http://dummyimage.com/200x100")
+                        //-     div.img-info 等待上传
+                        //-     div.progress
+                        //-         div.progress-bar(style="width:60%") 60%
             div.col-sm-10.col-sm-offset-2
                 button#J_publish.btn.btn-primary.btn-block.btn-lg 发布
                 
                 
 block append script
+    script(src="/javascripts/webuploader.js")
     script(src="/javascripts/pages/bulletin.js")

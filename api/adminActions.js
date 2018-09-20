@@ -1,4 +1,6 @@
 const mysqlActions = require('../libs/mysql.js');
+const fs = require('fs');
+const path = require('path');
 
 module.exports = {
     getArticalsByName: async ctx =>{
@@ -155,7 +157,7 @@ module.exports = {
         }else{
             let {id} = ctx.request.query;
             await mysqlActions.deleteAreas(id).then(result=>{
-                console.log(result);
+                // console.log(result);
                 ctx.body = {
                     code: 200,
                     message: '删除成功'
@@ -169,5 +171,39 @@ module.exports = {
             });
         }
     },
+    uploaderImg: async ctx=>{
+        //修改表设置上传权限
+        if(!ctx.session.uploadAuth){
+            ctx.body = {
+                code: 400,
+                message: '你没有权限'
+            }
+        }else{
+            let file = ctx.request.files.file;
+        	let ext = file.name.split('.').pop();
+            let filename = Math.random().toString().substring(2);
+            let fileUrl = `/temp/${filename}.${ext}`;
+            let reader = fs.createReadStream(file.path);
+        	let upStream = fs.createWriteStream(path.join(__dirname,`../public/temp/${filename}.${ext}`));
+        	reader.pipe(upStream);
 
+            await mysqlActions.insertUploadimg(filename).then(result=>{
+                ctx.body = {
+                    code: 200,
+                    message: '上传成功',
+                    data: {
+                        name: filename,
+                        url: fileUrl,
+                        id: result['insertId']
+                    }
+                }
+            }).catch(err=>{
+                console.log(err);
+                ctx.body = {
+                    code: 500,
+                    message: '服务异常'
+                }
+            });
+        }
+    }
 }

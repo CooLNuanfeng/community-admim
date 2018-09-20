@@ -33,6 +33,7 @@ router.get('/detail', async(ctx, next) => {
     }
     var detailInfo = await adminActions.getArticalById(id,user);
     var areaList = await adminActions.getAreaList();
+    console.log(detailInfo[0]);
     await ctx.render('pages/detail', {
         title: '发布详情',
         userInfo: ctx.session,
@@ -181,6 +182,6 @@ router.post('/api/updateAdminarea',adminActions.updateAdminarea);
 router.post('/api/postArtical',adminActions.postArtical);
 router.post('/api/updateArtical',adminActions.updateArtical);
 router.get('/api/delArtical',adminActions.delArtical);
-
+router.post('/api/fileupload',adminActions.uploaderImg);
 
 module.exports = router
