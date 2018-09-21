@@ -45,6 +45,8 @@ const upload_pics = `
     CREATE TABLE upload_pics (
     id int(11) NOT NULL AUTO_INCREMENT,
     picname varchar(255) DEFAULT NULL,
+    publisher varchar(255) DEFAULT NULL,
+    uploadtime timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 `

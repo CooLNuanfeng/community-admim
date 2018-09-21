@@ -111,7 +111,7 @@ exports.findArticalByName = (name)=>{
 
 
 //上传插入图片
-exports.insertUploadimg = (name)=>{
-    let _sql = `insert into upload_pics set picname="${name}";`
+exports.insertUploadimg = (picname,name)=>{
+    let _sql = `insert into upload_pics set picname="${picname}",publisher="${name}";`
     return query( _sql);
 }

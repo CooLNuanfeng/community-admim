@@ -179,6 +179,7 @@ module.exports = {
                 message: '你没有权限'
             }
         }else{
+            let name = ctx.session.user;
             let file = ctx.request.files.file;
         	let ext = file.name.split('.').pop();
             let filename = Math.random().toString().substring(2);
@@ -187,7 +188,7 @@ module.exports = {
         	let upStream = fs.createWriteStream(path.join(__dirname,`../public/temp/${filename}.${ext}`));
         	reader.pipe(upStream);
 
-            await mysqlActions.insertUploadimg(filename).then(result=>{
+            await mysqlActions.insertUploadimg(filename,name).then(result=>{
                 ctx.body = {
                     code: 200,
                     message: '上传成功',

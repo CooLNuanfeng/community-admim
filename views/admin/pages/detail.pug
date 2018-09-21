@@ -56,19 +56,19 @@ block content
             div.form-group.form-group-lg
                 label.col-sm-2.control-label 添加图片
                 div.col-sm-10
-                    - var uploadImgs = detailInfo.imgs.split(',')
+                    - var uploadImgs = detailInfo.imgs && detailInfo.imgs.split(',')
                     - var leftNum = 6 - uploadImgs.length
                     div.bulletin-btn
                         button.btn-120.btn.btn-primary#J_uploadBtn 添加图片
-                        span.upload-tips.label.label-danger 还可继续添加#{leftNum}张，每张2M内
+                        span#J_uploadTips.upload-tips.label.label-danger 每张2M内
                         div.alert.alert-danger.alert-upload#J_uploadMsg
                             button.close(type="button")
                                 span &times;
                             p 
                     div#J_uploadList.bulletin-img-list
                         each img in uploadImgs
-                            div.img-thumbnail
-                                span.del-img.glyphicon.glyphicon-remove.J_delImg(href="javascript:;" data-uploaded="true")
+                            div.img-thumbnail.J_imgUpload(data-uploaded="true")
+                                span.del-img.glyphicon.glyphicon-remove.J_delImg(href="javascript:;")
                                 img(src=`${img}`)
             div.col-sm-10.col-sm-offset-2
                 button#J_publish.btn.btn-primary.btn-block.btn-lg(data-id=`${detailInfo.id}`) 修改

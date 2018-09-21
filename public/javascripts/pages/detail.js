@@ -33,39 +33,20 @@
 
     //修改
     $publishBtn.on('click',function(){
-        var areaids = [],id = $(this).data('id');
+        articalId = $(this).data('id');
         $selectArea.find('span').each(function(index,item){
-            var id = $(item).attr('data-id');
-            if(id == 'all'){
+            var aid = $(item).attr('data-id');
+            if(aid == 'all'){
                 areaids.push('all');
             }else{
-                areaids.push(id);
+                areaids.push(aid);
             }
         });
         if(!areaids.length){
             clearAlert('区域参数缺失');
             return;
         }
-        $.ajax({
-            url: '/users/api/updateArtical',
-            type: 'post',
-            data: {
-                id: id,
-                title: $title.val(),
-                content: $content.val(),
-                type: type,
-                star: $selectStar.val() || 0,
-                areaids: areaids.join('-'),
-                imgs: ['http://dummyimage.com/750x100']
-            },
-            dataType: 'json'
-        }).done(function(res){
-            if(res.code == 200){
-                location.href = '/users/success?type=2';
-            }else{
-                clearAlert(res.message);
-            }
-        })
+        uploader.upload();
     });
 
     $alertClose.on('click',function(){
@@ -151,6 +132,7 @@
                 }
             });
         });
+
         uploader.on('uploadProgress', function( file, percentage ) {
             var $li = $( '#'+file.id ),
                 $process = $li.find('.progress'),
@@ -173,40 +155,40 @@
                 return;
             }
         });
-        uploader.on('uploadFinished', function(file) {
-            // $.ajax({
-            //     url: '/users/api/postArtical',
-            //     type: 'post',
-            //     data: {
-            //         title: $title.val(),
-            //         content: $content.val(),
-            //         type: 1,
-            //         star: '',
-            //         areaids: areaids.join('-'),
-            //         imgs: imgsUrl
-            //     },
-            //     dataType: 'json'
-            // }).done(function(res){
-            //     if(res.code == 200){
-            //         location.href = '/users/success?type=1';
-            //     }else{
-            //         clearAlert(res.message);
-            //     }
-            // })
+        uploader.on('uploadFinished', function(file){
+            $('.J_imgUpload').each(function(index,item){
+                var src = $(this).find('img').attr('src');
+                imgsUrl.unshift(src);
+            });
+            $.ajax({
+                url: '/users/api/updateArtical',
+                type: 'post',
+                data: {
+                    id: articalId,
+                    title: $title.val(),
+                    content: $content.val(),
+                    type: type,
+                    star: $selectStar.val() || 0,
+                    areaids: areaids.join('-'),
+                    imgs: imgsUrl
+                },
+                dataType: 'json'
+            }).done(function(res){
+                if(res.code == 200){
+                    location.href = '/users/success?type=2';
+                }else{
+                    clearAlert(res.message);
+                }
+            })
         });
         $list.on('click','.J_delImg',function(){
-            var uploaded = $(this).data('uploaded');
             var $li = $(this).parent();
+            var uploaded = $li.data('uploaded');
             var id = $li.attr('id');
-            var fileNumLimit;
-            if(uploaded){
-                
-            }else{
-                console.log(id);
+            if(!uploaded){
                 uploader.removeFile(id);
-                $li.remove();
             }
-
+            $li.remove();
         });
     }
     initUploader();
