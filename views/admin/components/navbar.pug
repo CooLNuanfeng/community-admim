@@ -14,7 +14,7 @@ nav.navbar.navbar-inverse
                         span.sr-only
                 li(class={active: currentUrl === '/users/recommend'})
                     a(href="/users/recommend") 推荐墙
-                if userInfo && userInfo.userid == 1 
+                if userInfo && userInfo.permission
                     li(class={active: currentUrl === '/users/administrator'})
                         a(class={active: currentUrl === '/users/administrator'} href="/users/administrator") 管理员
                     li(class={active: currentUrl === '/users/area'})

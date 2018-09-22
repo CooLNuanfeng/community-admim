@@ -13,6 +13,7 @@ module.exports = {
     postArtical: async ctx=>{
         let {title,content,type,star,areaids,imgs} = ctx.request.body;
         let publisher = ctx.session.user;
+        if(!imgs) imgs = [];
         await mysqlActions.insertArtical(title,content,type,star,areaids,imgs.join(','),publisher).then(result=>{
             ctx.body = {
                 code: 200,
@@ -29,6 +30,7 @@ module.exports = {
     updateArtical: async ctx=>{
         let {id,title,content,star,areaids,imgs} = ctx.request.body;
         // console.log(areaids);
+        if(!imgs) imgs = [];
         await mysqlActions.updateArtical(id,title,content,star,areaids,imgs.join(',')).then(result=>{
             ctx.body = {
                 code: 200,
@@ -75,7 +77,7 @@ module.exports = {
             }
         }else{
             let {name,ids} = ctx.request.body;
-            console.log(name,ids);
+            // console.log(name,ids);
             await mysqlActions.updateAdminarea(ids,name).then(result=>{
                 // console.log(result);
                 ctx.body = {

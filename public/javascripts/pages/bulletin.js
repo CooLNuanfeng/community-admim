@@ -59,7 +59,9 @@
             if($('.J_allSpan').length){
                 $('.J_allSpan').remove();
             }
-            $('#J_communityArea').append('<span class="label label-info" data-id="'+id+'">'+name+'<i class="glyphicon glyphicon-remove-circle"></i>');
+            if(!checkAreaId(id)){
+                $('#J_communityArea').append('<span class="label label-info" data-id="'+id+'">'+name+'<i class="glyphicon glyphicon-remove-circle"></i>');
+            }
         }
 
     });
@@ -75,6 +77,16 @@
         }, 3000);
     }
 
+    function checkAreaId(id){
+        var flag = false;
+        $('#J_communityArea span').each(function(index,item){
+            if($(item).attr('data-id') == id){
+                flag = true;
+                return;
+            }
+        });
+        return flag;
+    }
 
     function initUploader(){
         var $list = $('#J_uploadList');

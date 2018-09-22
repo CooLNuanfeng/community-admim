@@ -19,13 +19,32 @@ block content
                             td 
                                 p.td-title #{art.title}
                             td 
-                                each id in art.community_ids.split('-')
-                                    if id == 'all'
-                                        span.label.label-primary 全部
-                                    else
-                                        each area in areaList
-                                            if area.id == id
-                                                span.label.label-success #{area.name}
+                                if userInfo.permission
+                        
+                                    each id in art.community_ids.split('-')
+                                        if id == 'all'
+                                            span.label.label-primary 全部
+                                        else
+                                            
+                                            each area in areaList
+                                                if area.id == id 
+                                                    span.label.label-success #{area.name}                          
+                                else 
+                                    
+                                    each id in art.community_ids.split('-')
+                                        if id == 'all'
+                                            span.label.label-primary 全部
+                                        else
+                                            
+                                            - var userareaids = userareaIds.split('-')
+                                            each area in areaList
+                                                if area.id == id 
+                                                    if userareaids.includes(id)
+                                                        span.label.label-success #{area.name}
+                                                    else
+                                                        
+                                                        span.label.label-default #{area.name}
+                                                    
                             if art.type == 1 
                                 td 公告
                             else 

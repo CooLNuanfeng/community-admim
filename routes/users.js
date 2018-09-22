@@ -15,11 +15,13 @@ router.get('/index', async(ctx, next) => {
         return;
     }
     var articals = await adminActions.getArticalsByName(ctx);
+    var adminInfo = await adminActions.getAdminData(ctx);
     var areaList = await adminActions.getAreaList();
     await ctx.render('pages/index', {
         title: '首页',
         articals,
         areaList,
+        userareaIds: adminInfo[0]['communityid'],
         userInfo: ctx.session
     })
 })
@@ -32,12 +34,14 @@ router.get('/detail', async(ctx, next) => {
         return;
     }
     var detailInfo = await adminActions.getArticalById(id,user);
+    var adminInfo = await adminActions.getAdminData(ctx);
     var areaList = await adminActions.getAreaList();
-    console.log(detailInfo[0]);
+    console.log(ctx.session);
     await ctx.render('pages/detail', {
         title: '发布详情',
         userInfo: ctx.session,
         areaList,
+        userareaIds: adminInfo[0]['communityid'],
         detailInfo: detailInfo[0],
         type: type
     }).catch(err=>{

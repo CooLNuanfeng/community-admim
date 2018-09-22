@@ -40,6 +40,7 @@ block content
                                             if area.id == id
                                                 span.label.label-info(data-id=`${id}`) #{area.name}
                                                     <i class="glyphicon glyphicon-remove-circle"></i>
+                            
                             button.btn-120.btn.btn-primary#J_addComunity 选择区域
                         div#J_communityList.community-list
                             p.text-center 点击选中要添加的区域
@@ -48,11 +49,28 @@ block content
                                 each area in areaList
                                     span.label.label-success.J_item_area(data-id=`${area.id}`) #{area.name}
                     else
-                        div#J_communityArea.community-area
-                            each id in detailInfo.community_ids.split('-')
-                                each area in areaList
-                                    if area.id == id
-                                        span.label.label-success(data-id=`${id}`) #{area.name}
+                        
+                        div.community-area
+                            div#J_communityArea
+                                - var userareaids = userareaIds.split('-')
+                                each id in detailInfo.community_ids.split('-')
+                                    each area in areaList
+                                        if area.id == id
+                                            if userareaids.includes(id)
+                                                span.label.label-info(data-id=`${id}`) #{area.name}
+                                                    <i class="glyphicon glyphicon-remove-circle"></i>
+                                            else
+                                                
+                                                span.label.label-default #{area.name}
+                                                    <i class="glyphicon glyphicon-remove-circle"></i>
+                            button.btn-120.btn.btn-primary#J_addComunity 选择区域
+                        div#J_communityList.community-list
+                            p.text-center 点击选中要添加的区域
+                            div
+                                each id in userareaIds.split('-')
+                                    each area in areaList
+                                        if area.id == id
+                                            span.label.label-success.J_item_area(data-id=`${id}`) #{area.name}
             div.form-group.form-group-lg
                 label.col-sm-2.control-label 添加图片
                 div.col-sm-10
