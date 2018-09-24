@@ -8,9 +8,33 @@ router.get('/api/getBulletin', async (ctx, next) => {
         ctx.body = {
             code: 200,
             data: result,
-            message: '发布成功'
+            message: 'success'
+        }
+    }).catch(err=>{
+        ctx.body = {
+            code: 500,
+            err: err,
+            message: 'error'
         }
     });
-})
+});
+
+
+router.get('/api/getDetail',async(ctx,next)=>{
+    var {id,type} = ctx.request.query;
+    await wxapi.getArticalById(id,type).then(result=>{
+        ctx.body = {
+            code: 200,
+            data: result[0],
+            message: 'success'
+        }
+    }).catch(err=>{
+        ctx.body = {
+            code: 500,
+            err: err,
+            message: 'error'
+        }
+    });
+});
 
 module.exports = router

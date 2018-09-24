@@ -32,11 +32,12 @@ exports.query = query;
 //微信 api
 exports.findArticalinByCid = (cid,type)=>{
     let _sql = `SELECT * FROM publish_table WHERE type = ${type} AND community_ids='all' UNION SELECT * FROM publish_table WHERE type = ${type} AND community_ids LIKE '%${cid}%';`
-    return query( _sql);
+    return query( _sql );
 }
-
-
-
+exports.articalDetailById = (id,type)=>{
+   let _sql = `select * from publish_table where id="${id}" and type="${type}";`
+   return query( _sql );
+}
 
 
 
