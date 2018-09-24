@@ -59,7 +59,7 @@ const createTable = ( sql ) => {
 Promise.all([
     createTable(user_admin),
     createTable(area_community),
-    createTable(publish_table)
+    createTable(publish_table),
     createTable(upload_pics)
 ]).then(()=>{
     console.log('create tables success');

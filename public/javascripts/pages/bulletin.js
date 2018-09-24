@@ -151,7 +151,7 @@
                     title: $title.val(),
                     content: $content.val(),
                     type: 1,
-                    star: '',
+                    star: 0,
                     areaids: areaids.join('-'),
                     imgs: imgsUrl
                 },
