@@ -29,6 +29,23 @@ const query = ( sql, values ) => {
 }
 exports.query = query;
 
+//微信 api
+exports.findArticalinByCid = (cid,type)=>{
+    let _sql = `SELECT * FROM publish_table WHERE type = ${type} AND community_ids='all' UNION SELECT * FROM publish_table WHERE type = ${type} AND community_ids LIKE '%${cid}%';`
+    return query( _sql);
+}
+
+
+
+
+
+
+
+
+
+
+
+// 后台
 // 查找用户名是否存在
 exports.findDataCountByName = (name)=>{
     let _sql = `select count(*) as count from user_admin where name="${name}";`
